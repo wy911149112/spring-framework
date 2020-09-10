@@ -147,6 +147,7 @@ public class AnnotationConfigUtils {
 
 		DefaultListableBeanFactory beanFactory = unwrapDefaultListableBeanFactory(registry);
 		if (beanFactory != null) {
+			// è®¾ç½®ä¾èµ–æ¯”è¾ƒå™¨
 			if (!(beanFactory.getDependencyComparator() instanceof AnnotationAwareOrderComparator)) {
 				beanFactory.setDependencyComparator(AnnotationAwareOrderComparator.INSTANCE);
 			}
@@ -160,10 +161,12 @@ public class AnnotationConfigUtils {
 		if (!registry.containsBeanDefinition(CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME)) {
 			RootBeanDefinition def = new RootBeanDefinition(ConfigurationClassPostProcessor.class);
 			def.setSource(source);
+			// æ³¨å†Œ ConfigurationClassPostProcessoråç½®å¤„ç†å™¨  é‡ç‚¹---æ‰«æbean
 			beanDefs.add(registerPostProcessor(registry, def, CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME));
 		}
 
 		if (!registry.containsBeanDefinition(AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME)) {
+			// æ³¨å†ŒAutowiredAnnotationBeanPostProcessor  å¤„ç†autowireæ³¨è§£çš„åç½®å¤„ç†å™¨
 			RootBeanDefinition def = new RootBeanDefinition(AutowiredAnnotationBeanPostProcessor.class);
 			def.setSource(source);
 			beanDefs.add(registerPostProcessor(registry, def, AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME));
@@ -238,25 +241,25 @@ public class AnnotationConfigUtils {
 	}
 
 	static void processCommonDefinitionAnnotations(AnnotatedBeanDefinition abd, AnnotatedTypeMetadata metadata) {
-		// ÀÁ¼ÓÔØ
+		// æ‡’åŠ è½½
 		AnnotationAttributes lazy = attributesFor(metadata, Lazy.class);
 		if (lazy != null) {
-			// ÉèÖÃÀÁ¼ÓÔØÊôĞÔ
+			// è®¾ç½®æ‡’åŠ è½½å±æ€§
 			abd.setLazyInit(lazy.getBoolean("value"));
 		}
 		else if (abd.getMetadata() != metadata) {
-			// Á½Õßmetadata²»Ò»ÖÂ,¸ù¾İbeanDefinitionÔÙÖØĞÂ»ñÈ¡Ò»´Î
+			// ä¸¤è€…metadataä¸ä¸€è‡´,æ ¹æ®beanDefinitionå†é‡æ–°è·å–ä¸€æ¬¡
 			lazy = attributesFor(abd.getMetadata(), Lazy.class);
 			if (lazy != null) {
 				abd.setLazyInit(lazy.getBoolean("value"));
 			}
 		}
 
-		// ÉèÖÃ @Primary×¢½â  £¨Ö÷Òª£©
+		// è®¾ç½® @Primaryæ³¨è§£  ï¼ˆä¸»è¦ï¼‰
 		if (metadata.isAnnotated(Primary.class.getName())) {
 			abd.setPrimary(true);
 		}
-		// ¸ù¾İDependsOn×¢½â ÉèÖÃDependsOnÊôĞÔ
+		// æ ¹æ®DependsOnæ³¨è§£ è®¾ç½®DependsOnå±æ€§
 		AnnotationAttributes dependsOn = attributesFor(metadata, DependsOn.class);
 		if (dependsOn != null) {
 			abd.setDependsOn(dependsOn.getStringArray("value"));
@@ -278,14 +281,14 @@ public class AnnotationConfigUtils {
 	static BeanDefinitionHolder applyScopedProxyMode(
 			ScopeMetadata metadata, BeanDefinitionHolder definition, BeanDefinitionRegistry registry) {
 
-		// Scope×¢½â ScopedProxyModeÊôĞÔ  ÊÇ·ñÅäÖÃÎª×÷ÓÃÓò´úÀí
-		// ScopedProxyModeÊôĞÔ  ×÷ÓÃ Éú³É´úÀíÊôĞÔ  ÔÚScopeÎª¶àÀıÊ±£¬Èç¹ûĞèÒª½«¸ÃÀà×¢ÈëÒ»¸öµ¥ÀıµÄÀàÖĞ£¬´ËÊ±¾ÍĞèÒª½«¸ÃÊôĞÔÉèÖÃÎª´úÀíÀà
+		// Scopeæ³¨è§£ ScopedProxyModeå±æ€§  æ˜¯å¦é…ç½®ä¸ºä½œç”¨åŸŸä»£ç†
+		// ScopedProxyModeå±æ€§  ä½œç”¨ ç”Ÿæˆä»£ç†å±æ€§  åœ¨Scopeä¸ºå¤šä¾‹æ—¶ï¼Œå¦‚æœéœ€è¦å°†è¯¥ç±»æ³¨å…¥ä¸€ä¸ªå•ä¾‹çš„ç±»ä¸­ï¼Œæ­¤æ—¶å°±éœ€è¦å°†è¯¥å±æ€§è®¾ç½®ä¸ºä»£ç†ç±»
 		ScopedProxyMode scopedProxyMode = metadata.getScopedProxyMode();
 		if (scopedProxyMode.equals(ScopedProxyMode.NO)) {
 			return definition;
 		}
 		boolean proxyTargetClass = scopedProxyMode.equals(ScopedProxyMode.TARGET_CLASS);
-		// Ê¹ÓÃ´úÀí
+		// ä½¿ç”¨ä»£ç†
 		return ScopedProxyCreator.createScopedProxy(definition, registry, proxyTargetClass);
 	}
 

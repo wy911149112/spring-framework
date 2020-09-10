@@ -83,7 +83,9 @@ public class AnnotatedBeanDefinitionReader {
 		Assert.notNull(registry, "BeanDefinitionRegistry must not be null");
 		Assert.notNull(environment, "Environment must not be null");
 		this.registry = registry;
+		// @Conditionalæ³¨è§£çš„ å·¥å…·ç±» æ ¹æ®conditionæ¡ä»¶åˆ¤æ–­æ˜¯å¦æ³¨å…¥æŸä¸ªbean
 		this.conditionEvaluator = new ConditionEvaluator(registry, environment, null);
+		// æ³¨å†Œéƒ¨åˆ†åç½®å¤„ç†å™¨
 		AnnotationConfigUtils.registerAnnotationConfigProcessors(this.registry);
 	}
 
@@ -213,21 +215,21 @@ public class AnnotatedBeanDefinitionReader {
 	<T> void doRegisterBean(Class<T> annotatedClass, @Nullable Supplier<T> instanceSupplier, @Nullable String name,
 			@Nullable Class<? extends Annotation>[] qualifiers, BeanDefinitionCustomizer... definitionCustomizers) {
 
-		// ÉèÖÃÀàÃûºóµÄbeanDefinition
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½beanDefinition
 		AnnotatedGenericBeanDefinition abd = new AnnotatedGenericBeanDefinition(annotatedClass);
-		// ¸ù¾İÀàµÄconditional×¢½â ÅĞ¶Ï¸ÃbeanÊÇ·ñĞèÒª±»×¢²á Èç¹ûcondition matches·½·¨·µ»Øfalse  ÔòÌø¹ı¸Ãbean  ¸Ãbean²»»á±»×¢²á
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½conditional×¢ï¿½ï¿½ ï¿½Ğ¶Ï¸ï¿½beanï¿½Ç·ï¿½ï¿½ï¿½Òªï¿½ï¿½×¢ï¿½ï¿½ ï¿½ï¿½ï¿½condition matchesï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½false  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bean  ï¿½ï¿½beanï¿½ï¿½ï¿½á±»×¢ï¿½ï¿½
 		if (this.conditionEvaluator.shouldSkip(abd.getMetadata())) {
 			return;
 		}
 
 		abd.setInstanceSupplier(instanceSupplier);
-		// @Scope×¢½â
+		// @Scope×¢ï¿½ï¿½
 		ScopeMetadata scopeMetadata = this.scopeMetadataResolver.resolveScopeMetadata(abd);
 		abd.setScope(scopeMetadata.getScopeName());
-		// »ñÈ¡beanName
+		// ï¿½ï¿½È¡beanName
 		String beanName = (name != null ? name : this.beanNameGenerator.generateBeanName(abd, this.registry));
 
-		// ´¦ÀíÍ³Ò»µÄ×¢½â
+		// ï¿½ï¿½ï¿½ï¿½Í³Ò»ï¿½ï¿½×¢ï¿½ï¿½
 		AnnotationConfigUtils.processCommonDefinitionAnnotations(abd);
 		if (qualifiers != null) {
 			for (Class<? extends Annotation> qualifier : qualifiers) {
@@ -247,7 +249,7 @@ public class AnnotatedBeanDefinitionReader {
 		}
 
 		BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(abd, beanName);
-		// Èç¹û¸ÃÀàScope×¢½âÖ¸¶¨ÁËÊ¹ÓÃ´úÀíÉú³ÉÀà ÔòÊ¹ÓÃ´úÀíÉú³É
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Scope×¢ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ê¹ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		definitionHolder = AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry);
 		BeanDefinitionReaderUtils.registerBeanDefinition(definitionHolder, this.registry);
 	}
@@ -259,7 +261,9 @@ public class AnnotatedBeanDefinitionReader {
 	 */
 	private static Environment getOrCreateEnvironment(BeanDefinitionRegistry registry) {
 		Assert.notNull(registry, "BeanDefinitionRegistry must not be null");
+		// è·å–Environment --> StandardEnvironment
 		if (registry instanceof EnvironmentCapable) {
+			// AbstractApplicationContext.getEnvironment()
 			return ((EnvironmentCapable) registry).getEnvironment();
 		}
 		return new StandardEnvironment();

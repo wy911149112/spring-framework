@@ -119,7 +119,7 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 	 * @see #getResourcePatternResolver
 	 */
 	protected void loadBeanDefinitions(XmlBeanDefinitionReader reader) throws BeansException, IOException {
-		// 刚开始进入时设置的扫描包路径
+		// 鍒氬紑濮嬭繘鍏ユ椂璁剧疆鐨勬壂鎻忓寘璺緞
 		Resource[] configResources = getConfigResources();
 		if (configResources != null) {
 			reader.loadBeanDefinitions(configResources);

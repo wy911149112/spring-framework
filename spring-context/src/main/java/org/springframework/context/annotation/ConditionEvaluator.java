@@ -78,7 +78,7 @@ class ConditionEvaluator {
 	 * @return if the item should be skipped
 	 */
 	public boolean shouldSkip(@Nullable AnnotatedTypeMetadata metadata, @Nullable ConfigurationPhase phase) {
-		// Èç¹ûÀàÃ»ÓĞ×¢½â »òÕßÃ»ÓĞ@Conditional×¢½â
+		// å¦‚æœç±»æ²¡æœ‰æ³¨è§£ æˆ–è€…æ²¡æœ‰@Conditionalæ³¨è§£
 		if (metadata == null || !metadata.isAnnotated(Conditional.class.getName())) {
 			return false;
 		}
@@ -91,11 +91,11 @@ class ConditionEvaluator {
 			return shouldSkip(metadata, ConfigurationPhase.REGISTER_BEAN);
 		}
 
-		// @Conditional×¢½â  Ò»¸öÀà¿ÉÒÔ°üº¬¶à¸ö¸Ã×¢½â  Ã¿¸ö×¢½âÀïÃæÊÇÒ»¸ö¼Ì³ĞÁËConditionÀàµÄÀàµÄÈ«ÏŞÀàÃû
+		// @Conditionalæ³¨è§£  ä¸€ä¸ªç±»å¯ä»¥åŒ…å«å¤šä¸ªè¯¥æ³¨è§£  æ¯ä¸ªæ³¨è§£é‡Œé¢æ˜¯ä¸€ä¸ªç»§æ‰¿äº†Conditionç±»çš„ç±»çš„å…¨é™ç±»å
 		List<Condition> conditions = new ArrayList<>();
 		for (String[] conditionClasses : getConditionClasses(metadata)) {
 			for (String conditionClass : conditionClasses) {
-				// Ã¿Ò»¸öCondition×ÓÀà
+				// æ¯ä¸€ä¸ªConditionå­ç±»
 				Condition condition = getCondition(conditionClass, this.context.getClassLoader());
 				conditions.add(condition);
 			}
@@ -108,7 +108,7 @@ class ConditionEvaluator {
 			if (condition instanceof ConfigurationCondition) {
 				requiredPhase = ((ConfigurationCondition) condition).getConfigurationPhase();
 			}
-			// Èç¹ûcondition matches·½·¨·µ»Øfalse  ÔòÌø¹ı¸Ãbean  ¸Ãbean²»»á±»×¢²á
+			// å¦‚æœcondition matchesæ–¹æ³•è¿”å›false  åˆ™è·³è¿‡è¯¥bean  è¯¥beanä¸ä¼šè¢«æ³¨å†Œ
 			if ((requiredPhase == null || requiredPhase == phase) && !condition.matches(this.context, metadata)) {
 				return true;
 			}
@@ -152,9 +152,14 @@ class ConditionEvaluator {
 				@Nullable Environment environment, @Nullable ResourceLoader resourceLoader) {
 
 			this.registry = registry;
+			// æ ¹æ®BeanDefinitionRegistry ç±»å‹ è®¾ç½®beanFactoryç±»å‹
+			// ä¸ºConfigurableApplicationContext  --> DefaultListableBeanFactory
 			this.beanFactory = deduceBeanFactory(registry);
+			// è®¾ç½®Environment
 			this.environment = (environment != null ? environment : deduceEnvironment(registry));
+			// èµ„æºåŠ è½½å™¨
 			this.resourceLoader = (resourceLoader != null ? resourceLoader : deduceResourceLoader(registry));
+			// è®¾ç½®ç±»åŠ è½½å™¨  AppClassLoader
 			this.classLoader = deduceClassLoader(resourceLoader, this.beanFactory);
 		}
 

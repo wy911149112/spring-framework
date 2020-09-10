@@ -514,74 +514,74 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	}
 
 	/**
-	 * ¹¹½¨springÈİÆ÷
-	 * 1. ¼ÓËø ·ÀÖ¹ÈİÆ÷ÕıÔÚ¹¹½¨  ÓÖÀ´ÇëÇóÖØĞÂ¹¹½¨»òÕßÏú»Ù
-	 * 2. ×¼±¸¹¤×÷£¬¼ÇÂ¼ÏÂÈİÆ÷µÄÆô¶¯Ê±¼ä¡¢±ê¼Ç¡°ÒÑÆô¶¯¡±×´Ì¬¡¢´¦ÀíÅäÖÃÎÄ¼şÖĞµÄÕ¼Î»·û
-	 * 3. ½âÎöÅäÖÃÎÄ¼ş£¬»òÕß×¢½â ½âÎöÎªBean¶¨Òå£¬²¢×¢²áµ½BeanFactoryÖĞ   ----- ÖØµã
-	 * 4. ÉèÖÃ BeanFactory µÄÀà¼ÓÔØÆ÷£¬Ìí¼Ó¼¸¸ö BeanPostProcessor£¬ÊÖ¶¯×¢²á¼¸¸öÌØÊâµÄ bean
-	 * 5. Ìá¹©À©Õ¹½Ó¿ÚBeanFactoryPostProcessor£¬×ÓÀàÊµÏÖ¸Ã½Ó¿ÚµÄ»°ÔÚÈİÆ÷³õÊ¼»¯ºó»áµ÷ÓÃ¸Ã½Ó¿ÚµÄpostProcessBeanFactory·½·¨
-	 * 6. µ÷ÓÃ BeanFactoryPostProcessor ¸÷¸öÊµÏÖÀàµÄ postProcessBeanFactory(factory) ·½·¨
-	 * 7. ×¢²á BeanPostProcessor µÄÊµÏÖÀà ¸Ã½Ó¿ÚÓĞÁ½¸ö·½·¨ Ò»¸öÔÚBean³õÊ¼»¯Ö®Ç°µ÷ÓÃ Ò»¸öÔÚ³õÊ¼»¯Ö®ºóµ÷ÓÃ
-	 * 8. ³õÊ¼»¯µ±Ç° ApplicationContext µÄ MessageSource
-	 * 9. ³õÊ¼»¯µ±Ç° ApplicationContext µÄÊÂ¼ş¹ã²¥Æ÷
-	 * 10.¾ßÌåµÄ×ÓÀà¿ÉÒÔÔÚÕâÀï³õÊ¼»¯Ò»Ğ©ÌØÊâµÄ Bean£¨ÔÚ³õÊ¼»¯ singleton beans Ö®Ç°£© --- Ìá¹©À©Õ¹
-	 * 11.×¢²áÊÂ¼ş¼àÌıÆ÷£¬¼àÌıÆ÷ĞèÒªÊµÏÖ ApplicationListener ½Ó¿Ú
-	 * 12.³õÊ¼»¯Bean£¨ÀÁ¼ÓÔØ³ıÍâ£©
-	 * 13.×îºó£¬¹ã²¥ÊÂ¼ş£¬ApplicationContext ³õÊ¼»¯Íê³É
+	 * æ„å»ºspringå®¹å™¨
+	 * 1. åŠ é” é˜²æ­¢å®¹å™¨æ­£åœ¨æ„å»º  åˆæ¥è¯·æ±‚é‡æ–°æ„å»ºæˆ–è€…é”€æ¯
+	 * 2. å‡†å¤‡å·¥ä½œï¼Œè®°å½•ä¸‹å®¹å™¨çš„å¯åŠ¨æ—¶é—´ã€æ ‡è®°â€œå·²å¯åŠ¨â€çŠ¶æ€ã€å¤„ç†é…ç½®æ–‡ä»¶ä¸­çš„å ä½ç¬¦
+	 * 3. è§£æé…ç½®æ–‡ä»¶ï¼Œæˆ–è€…æ³¨è§£ è§£æä¸ºBeanå®šä¹‰ï¼Œå¹¶æ³¨å†Œåˆ°BeanFactoryä¸­   ----- é‡ç‚¹
+	 * 4. è®¾ç½® BeanFactory çš„ç±»åŠ è½½å™¨ï¼Œæ·»åŠ å‡ ä¸ª BeanPostProcessorï¼Œæ‰‹åŠ¨æ³¨å†Œå‡ ä¸ªç‰¹æ®Šçš„ bean
+	 * 5. æä¾›æ‰©å±•æ¥å£BeanFactoryPostProcessorï¼Œå­ç±»å®ç°è¯¥æ¥å£çš„è¯åœ¨å®¹å™¨åˆå§‹åŒ–åä¼šè°ƒç”¨è¯¥æ¥å£çš„postProcessBeanFactoryæ–¹æ³•
+	 * 6. è°ƒç”¨ BeanFactoryPostProcessor å„ä¸ªå®ç°ç±»çš„ postProcessBeanFactory(factory) æ–¹æ³•
+	 * 7. æ³¨å†Œ BeanPostProcessor çš„å®ç°ç±» è¯¥æ¥å£æœ‰ä¸¤ä¸ªæ–¹æ³• ä¸€ä¸ªåœ¨Beanåˆå§‹åŒ–ä¹‹å‰è°ƒç”¨ ä¸€ä¸ªåœ¨åˆå§‹åŒ–ä¹‹åè°ƒç”¨
+	 * 8. åˆå§‹åŒ–å½“å‰ ApplicationContext çš„ MessageSource
+	 * 9. åˆå§‹åŒ–å½“å‰ ApplicationContext çš„äº‹ä»¶å¹¿æ’­å™¨
+	 * 10.å…·ä½“çš„å­ç±»å¯ä»¥åœ¨è¿™é‡Œåˆå§‹åŒ–ä¸€äº›ç‰¹æ®Šçš„ Beanï¼ˆåœ¨åˆå§‹åŒ– singleton beans ä¹‹å‰ï¼‰ --- æä¾›æ‰©å±•
+	 * 11.æ³¨å†Œäº‹ä»¶ç›‘å¬å™¨ï¼Œç›‘å¬å™¨éœ€è¦å®ç° ApplicationListener æ¥å£
+	 * 12.åˆå§‹åŒ–Beanï¼ˆæ‡’åŠ è½½é™¤å¤–ï¼‰
+	 * 13.æœ€åï¼Œå¹¿æ’­äº‹ä»¶ï¼ŒApplicationContext åˆå§‹åŒ–å®Œæˆ
 	 * @throws BeansException
 	 * @throws IllegalStateException
 	 */
 	@Override
 	public void refresh() throws BeansException, IllegalStateException {
-		// ¼ÓËø ·ÀÖ¹ÈİÆ÷ÕıÔÚ¹¹½¨  ÓÖÀ´ÇëÇóÖØĞÂ¹¹½¨»òÕßÏú»Ù
+		// åŠ é” é˜²æ­¢å®¹å™¨æ­£åœ¨æ„å»º  åˆæ¥è¯·æ±‚é‡æ–°æ„å»ºæˆ–è€…é”€æ¯
 		synchronized (this.startupShutdownMonitor) {
-			// ×¼±¸¹¤×÷£¬¼ÇÂ¼ÏÂÈİÆ÷µÄÆô¶¯Ê±¼ä¡¢±ê¼Ç¡°ÒÑÆô¶¯¡±×´Ì¬¡¢´¦ÀíÅäÖÃÎÄ¼şÖĞµÄÕ¼Î»·û
+			// å‡†å¤‡å·¥ä½œï¼Œè®°å½•ä¸‹å®¹å™¨çš„å¯åŠ¨æ—¶é—´ã€æ ‡è®°â€œå·²å¯åŠ¨â€çŠ¶æ€ã€å¤„ç†é…ç½®æ–‡ä»¶ä¸­çš„å ä½ç¬¦
 			prepareRefresh();
 
-			// XML Õâ²½±È½Ï¹Ø¼ü£¬Õâ²½Íê³Éºó£¬ÅäÖÃÎÄ¼ş¾Í»á½âÎö³ÉÒ»¸ö¸ö Bean ¶¨Òå£¬×¢²áµ½ BeanFactory ÖĞ£¬
-			// µ±È»£¬ÕâÀïËµµÄ Bean »¹Ã»ÓĞ³õÊ¼»¯£¬Ö»ÊÇÅäÖÃĞÅÏ¢¶¼ÌáÈ¡³öÀ´ÁË£¬
-			// ×¢²áÒ²Ö»ÊÇ½«ÕâĞ©ĞÅÏ¢¶¼±£´æµ½ÁË×¢²áÖĞĞÄ(Ëµµ½µ×ºËĞÄÊÇÒ»¸ö beanName-> beanDefinition µÄ map)
+			// XML è¿™æ­¥æ¯”è¾ƒå…³é”®ï¼Œè¿™æ­¥å®Œæˆåï¼Œé…ç½®æ–‡ä»¶å°±ä¼šè§£ææˆä¸€ä¸ªä¸ª Bean å®šä¹‰ï¼Œæ³¨å†Œåˆ° BeanFactory ä¸­ï¼Œ
+			// å½“ç„¶ï¼Œè¿™é‡Œè¯´çš„ Bean è¿˜æ²¡æœ‰åˆå§‹åŒ–ï¼Œåªæ˜¯é…ç½®ä¿¡æ¯éƒ½æå–å‡ºæ¥äº†ï¼Œ
+			// æ³¨å†Œä¹Ÿåªæ˜¯å°†è¿™äº›ä¿¡æ¯éƒ½ä¿å­˜åˆ°äº†æ³¨å†Œä¸­å¿ƒ(è¯´åˆ°åº•æ ¸å¿ƒæ˜¯ä¸€ä¸ª beanName-> beanDefinition çš„ map)
 
-			// Annotation »ñÈ¡beanFactory  -> DefaultListableBeanFactory
+			// Annotation è·å–beanFactory  -> DefaultListableBeanFactory
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
-			// ÉèÖÃ BeanFactory µÄÀà¼ÓÔØÆ÷£¬Ìí¼Ó¼¸¸ö BeanPostProcessor£¬ÊÖ¶¯×¢²á¼¸¸öÌØÊâµÄ bean
+			// è®¾ç½® BeanFactory çš„ç±»åŠ è½½å™¨ï¼Œæ·»åŠ å‡ ä¸ª BeanPostProcessorï¼Œæ‰‹åŠ¨æ³¨å†Œå‡ ä¸ªç‰¹æ®Šçš„ bean
 			prepareBeanFactory(beanFactory);
 
 			try {
 
-				// ¡¾ÕâÀïĞèÒªÖªµÀ BeanFactoryPostProcessor Õâ¸öÖªÊ¶µã£¬Bean Èç¹ûÊµÏÖÁË´Ë½Ó¿Ú£¬
-				// ÄÇÃ´ÔÚÈİÆ÷³õÊ¼»¯ÒÔºó£¬Spring »á¸ºÔğµ÷ÓÃÀïÃæµÄ postProcessBeanFactory ·½·¨¡£¡¿
+				// ã€è¿™é‡Œéœ€è¦çŸ¥é“ BeanFactoryPostProcessor è¿™ä¸ªçŸ¥è¯†ç‚¹ï¼ŒBean å¦‚æœå®ç°äº†æ­¤æ¥å£ï¼Œ
+				// é‚£ä¹ˆåœ¨å®¹å™¨åˆå§‹åŒ–ä»¥åï¼ŒSpring ä¼šè´Ÿè´£è°ƒç”¨é‡Œé¢çš„ postProcessBeanFactory æ–¹æ³•ã€‚ã€‘
 
-				// ÕâÀïÊÇÌá¹©¸ø×ÓÀàµÄÀ©Õ¹µã£¬µ½ÕâÀïµÄÊ±ºò£¬ËùÓĞµÄ Bean ¶¼¼ÓÔØ¡¢×¢²áÍê³ÉÁË£¬µ«ÊÇ¶¼»¹Ã»ÓĞ³õÊ¼»¯
-				// ¾ßÌåµÄ×ÓÀà¿ÉÒÔÔÚÕâ²½µÄÊ±ºòÌí¼ÓÒ»Ğ©ÌØÊâµÄ BeanFactoryPostProcessor µÄÊµÏÖÀà»ò×öµãÊ²Ã´ÊÂ
+				// è¿™é‡Œæ˜¯æä¾›ç»™å­ç±»çš„æ‰©å±•ç‚¹ï¼Œåˆ°è¿™é‡Œçš„æ—¶å€™ï¼Œæ‰€æœ‰çš„ Bean éƒ½åŠ è½½ã€æ³¨å†Œå®Œæˆäº†ï¼Œä½†æ˜¯éƒ½è¿˜æ²¡æœ‰åˆå§‹åŒ–
+				// å…·ä½“çš„å­ç±»å¯ä»¥åœ¨è¿™æ­¥çš„æ—¶å€™æ·»åŠ ä¸€äº›ç‰¹æ®Šçš„ BeanFactoryPostProcessor çš„å®ç°ç±»æˆ–åšç‚¹ä»€ä¹ˆäº‹
 				postProcessBeanFactory(beanFactory);
 
-				// µ÷ÓÃ BeanFactoryPostProcessor ¸÷¸öÊµÏÖÀàµÄ postProcessBeanFactory(factory) ·½·¨
+				// è°ƒç”¨ BeanFactoryPostProcessor å„ä¸ªå®ç°ç±»çš„ postProcessBeanFactory(factory) æ–¹æ³•
 				invokeBeanFactoryPostProcessors(beanFactory);
 
-				// ×¢²á BeanPostProcessor µÄÊµÏÖÀà£¬×¢Òâ¿´ºÍ BeanFactoryPostProcessor µÄÇø±ğ
-				// ´Ë½Ó¿ÚÁ½¸ö·½·¨: postProcessBeforeInitialization ºÍ postProcessAfterInitialization
-				// Á½¸ö·½·¨·Ö±ğÔÚ Bean ³õÊ¼»¯Ö®Ç°ºÍ³õÊ¼»¯Ö®ºóµÃµ½Ö´ĞĞ¡£×¢Òâ£¬µ½ÕâÀï Bean »¹Ã»³õÊ¼»¯
+				// æ³¨å†Œ BeanPostProcessor çš„å®ç°ç±»ï¼Œæ³¨æ„çœ‹å’Œ BeanFactoryPostProcessor çš„åŒºåˆ«
+				// æ­¤æ¥å£ä¸¤ä¸ªæ–¹æ³•: postProcessBeforeInitialization å’Œ postProcessAfterInitialization
+				// ä¸¤ä¸ªæ–¹æ³•åˆ†åˆ«åœ¨ Bean åˆå§‹åŒ–ä¹‹å‰å’Œåˆå§‹åŒ–ä¹‹åå¾—åˆ°æ‰§è¡Œã€‚æ³¨æ„ï¼Œåˆ°è¿™é‡Œ Bean è¿˜æ²¡åˆå§‹åŒ–
 				registerBeanPostProcessors(beanFactory);
 
-				// ³õÊ¼»¯µ±Ç° ApplicationContext µÄ MessageSource
+				// åˆå§‹åŒ–å½“å‰ ApplicationContext çš„ MessageSource
 				initMessageSource();
 
-				// ³õÊ¼»¯µ±Ç° ApplicationContext µÄÊÂ¼ş¹ã²¥Æ÷
+				// åˆå§‹åŒ–å½“å‰ ApplicationContext çš„äº‹ä»¶å¹¿æ’­å™¨
 				initApplicationEventMulticaster();
 
-				// ¾ßÌåµÄ×ÓÀà¿ÉÒÔÔÚÕâÀï³õÊ¼»¯Ò»Ğ©ÌØÊâµÄ Bean£¨ÔÚ³õÊ¼»¯ singleton beans Ö®Ç°£©
+				// å…·ä½“çš„å­ç±»å¯ä»¥åœ¨è¿™é‡Œåˆå§‹åŒ–ä¸€äº›ç‰¹æ®Šçš„ Beanï¼ˆåœ¨åˆå§‹åŒ– singleton beans ä¹‹å‰ï¼‰
 				onRefresh();
 
-				// ×¢²áÊÂ¼ş¼àÌıÆ÷£¬¼àÌıÆ÷ĞèÒªÊµÏÖ ApplicationListener ½Ó¿Ú
+				// æ³¨å†Œäº‹ä»¶ç›‘å¬å™¨ï¼Œç›‘å¬å™¨éœ€è¦å®ç° ApplicationListener æ¥å£
 				registerListeners();
 
-				// ³õÊ¼»¯ËùÓĞµÄ singleton beans
-				//£¨lazy-init µÄ³ıÍâ£©
+				// åˆå§‹åŒ–æ‰€æœ‰çš„ singleton beans
+				//ï¼ˆlazy-init çš„é™¤å¤–ï¼‰
 				finishBeanFactoryInitialization(beanFactory);
 
-				// ×îºó£¬¹ã²¥ÊÂ¼ş£¬ApplicationContext ³õÊ¼»¯Íê³É
+				// æœ€åï¼Œå¹¿æ’­äº‹ä»¶ï¼ŒApplicationContext åˆå§‹åŒ–å®Œæˆ
 				finishRefresh();
 			}
 
@@ -591,10 +591,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 							"cancelling refresh attempt: " + ex);
 				}
 
-				// Ïú»ÙÒÑ¾­³õÊ¼»¯µÄ singleton µÄ Beans£¬ÒÔÃâÓĞĞ© bean »áÒ»Ö±Õ¼ÓÃ×ÊÔ´
+				// é”€æ¯å·²ç»åˆå§‹åŒ–çš„ singleton çš„ Beansï¼Œä»¥å…æœ‰äº› bean ä¼šä¸€ç›´å ç”¨èµ„æº
 				destroyBeans();
 
-				// Í£Ö¹³õÊ¼»¯²Ù×÷
+				// åœæ­¢åˆå§‹åŒ–æ“ä½œ
 				cancelRefresh(ex);
 
 				// Propagate exception to caller.
@@ -602,7 +602,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			}
 
 			finally {
-				// Çå¿Õ»º´æ
+				// æ¸…ç©ºç¼“å­˜
 				resetCommonCaches();
 			}
 		}
@@ -622,10 +622,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			logger.info("Refreshing " + this);
 		}
 
-		// ³õÊ¼»¯ÉÏÏÂÎÄ»·¾³ÖĞµÄÕ¼Î»·û   --- AbstractRefreshableWebApplicationContext
+		// åˆå§‹åŒ–ä¸Šä¸‹æ–‡ç¯å¢ƒä¸­çš„å ä½ç¬¦   --- AbstractRefreshableWebApplicationContext
 		initPropertySources();
 
-		// Ğ£Ñé xml ÅäÖÃÎÄ¼ş£¬ÑéÖ¤ËùÓĞ±ê¼ÇÎª±ØÒªµÄÊôĞÔ¶¼ÊÇ¿É½âÎöµÄ£º
+		// æ ¡éªŒ xml é…ç½®æ–‡ä»¶ï¼ŒéªŒè¯æ‰€æœ‰æ ‡è®°ä¸ºå¿…è¦çš„å±æ€§éƒ½æ˜¯å¯è§£æçš„ï¼š
 		getEnvironment().validateRequiredProperties();
 
 		// Store pre-refresh ApplicationListeners...
@@ -659,9 +659,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * @see #getBeanFactory()
 	 */
 	protected ConfigurableListableBeanFactory obtainFreshBeanFactory() {
-		// ¹Ø±Õ¾ÉµÄ BeanFactory (Èç¹ûÓĞ)£¬´´½¨ĞÂµÄ BeanFactory£¬¼ÓÔØ Bean ¶¨Òå¡¢×¢²á Bean µÈµÈ
+		// å…³é—­æ—§çš„ BeanFactory (å¦‚æœæœ‰)ï¼Œåˆ›å»ºæ–°çš„ BeanFactoryï¼ŒåŠ è½½ Bean å®šä¹‰ã€æ³¨å†Œ Bean ç­‰ç­‰
 		refreshBeanFactory();
-		// ·µ»Ø¸Õ¸Õ´´½¨µÄ BeanFactory
+		// è¿”å›åˆšåˆšåˆ›å»ºçš„ BeanFactory
 		ConfigurableListableBeanFactory beanFactory = getBeanFactory();
 		if (logger.isDebugEnabled()) {
 			logger.debug("Bean factory for " + getDisplayName() + ": " + beanFactory);
@@ -675,18 +675,18 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * @param beanFactory the BeanFactory to configure
 	 */
 	protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
-		// ÉèÖÃ BeanFactory µÄÀà¼ÓÔØÆ÷£¬ÎÒÃÇÖªµÀ BeanFactory ĞèÒª¼ÓÔØÀà£¬Ò²¾ÍĞèÒªÀà¼ÓÔØÆ÷£¬
-		// ÕâÀïÉèÖÃÎªµ±Ç° ApplicationContext µÄÀà¼ÓÔØÆ÷
+		// è®¾ç½® BeanFactory çš„ç±»åŠ è½½å™¨ï¼Œæˆ‘ä»¬çŸ¥é“ BeanFactory éœ€è¦åŠ è½½ç±»ï¼Œä¹Ÿå°±éœ€è¦ç±»åŠ è½½å™¨ï¼Œ
+		// è¿™é‡Œè®¾ç½®ä¸ºå½“å‰ ApplicationContext çš„ç±»åŠ è½½å™¨
 		beanFactory.setBeanClassLoader(getClassLoader());
 		beanFactory.setBeanExpressionResolver(new StandardBeanExpressionResolver(beanFactory.getBeanClassLoader()));
 		beanFactory.addPropertyEditorRegistrar(new ResourceEditorRegistrar(this, getEnvironment()));
 
-		// Ìí¼ÓÒ»¸ö BeanPostProcessor£¬Õâ¸ö processor ±È½Ï¼òµ¥£¬
-		// ÊµÏÖÁË Aware ½Ó¿ÚµÄ¼¸¸öÌØÊâµÄ beans ÔÚ³õÊ¼»¯µÄÊ±ºò£¬Õâ¸ö processor ¸ºÔğ»Øµ÷
+		// æ·»åŠ ä¸€ä¸ª BeanPostProcessorï¼Œè¿™ä¸ª processor æ¯”è¾ƒç®€å•ï¼Œ
+		// å®ç°äº† Aware æ¥å£çš„å‡ ä¸ªç‰¹æ®Šçš„ beans åœ¨åˆå§‹åŒ–çš„æ—¶å€™ï¼Œè¿™ä¸ª processor è´Ÿè´£å›è°ƒ
 		beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
 
-		// ÏÂÃæ¼¸ĞĞµÄÒâË¼¾ÍÊÇ£¬Èç¹ûÄ³¸ö bean ÒÀÀµÓÚÒÔÏÂ¼¸¸ö½Ó¿ÚµÄÊµÏÖÀà£¬ÔÚ×Ô¶¯×°ÅäµÄÊ±ºòºöÂÔËüÃÇ£¬
-		// Spring »áÍ¨¹ıÆäËû·½Ê½À´´¦ÀíÕâĞ©ÒÀÀµ¡£
+		// ä¸‹é¢å‡ è¡Œçš„æ„æ€å°±æ˜¯ï¼Œå¦‚æœæŸä¸ª bean ä¾èµ–äºä»¥ä¸‹å‡ ä¸ªæ¥å£çš„å®ç°ç±»ï¼Œåœ¨è‡ªåŠ¨è£…é…çš„æ—¶å€™å¿½ç•¥å®ƒä»¬ï¼Œ
+		// Spring ä¼šé€šè¿‡å…¶ä»–æ–¹å¼æ¥å¤„ç†è¿™äº›ä¾èµ–ã€‚
 		beanFactory.ignoreDependencyInterface(EnvironmentAware.class);
 		beanFactory.ignoreDependencyInterface(EmbeddedValueResolverAware.class);
 		beanFactory.ignoreDependencyInterface(ResourceLoaderAware.class);
@@ -914,7 +914,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		beanFactory.freezeConfiguration();
 
 		// Instantiate all remaining (non-lazy-init) singletons.
-		// ³õÊ¼»¯ËùÓĞ·ÇÀÁ¼ÓÔØµÄbean
+		// åˆå§‹åŒ–æ‰€æœ‰éæ‡’åŠ è½½çš„bean
 		beanFactory.preInstantiateSingletons();
 	}
 

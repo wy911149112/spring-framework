@@ -48,5 +48,13 @@ The Spring Framework is released under version 2.0 of the
 [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
 
 
+## 编译步骤
 https://gradle.org/releases/
-Gradle version 4.4.1
+下载安装Gradle version 4.4.1
+
+添加仓库
+maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+		maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter'}
+		
+		
+	// 设置build-tool->gradler->build with idea  否则每次需要编译很久

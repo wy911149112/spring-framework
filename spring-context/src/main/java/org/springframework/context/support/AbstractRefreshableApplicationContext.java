@@ -122,22 +122,22 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 */
 	@Override
 	protected final void refreshBeanFactory() throws BeansException {
-		// Èç¹ûÒÑ¾­¼Ó×°¹ıBeanFactory ÏÈÏú»ÙËùÓĞ´´½¨¹ıµÃbean È»ºóÔÚ¹Ø±ÕÒÑ¾­´´½¨¹ıµÄÈİÆ÷
+		// å¦‚æœå·²ç»åŠ è£…è¿‡BeanFactory å…ˆé”€æ¯æ‰€æœ‰åˆ›å»ºè¿‡å¾—bean ç„¶ååœ¨å…³é—­å·²ç»åˆ›å»ºè¿‡çš„å®¹å™¨
 		if (hasBeanFactory()) {
 			destroyBeans();
 			closeBeanFactory();
 		}
 		try {
-			// ³õÊ¼»¯Ò»¸ö DefaultListableBeanFactory
+			// åˆå§‹åŒ–ä¸€ä¸ª DefaultListableBeanFactory
 			DefaultListableBeanFactory beanFactory = createBeanFactory();
 
-			// ÓÃÓÚ BeanFactory µÄĞòÁĞ»¯
+			// ç”¨äº BeanFactory çš„åºåˆ—åŒ–
 			beanFactory.setSerializationId(getId());
 
-			// ÉèÖÃbeanÊÇ·ñ¿ÉÒÔ±»¸²¸ÇºÍÊÇ·ñÔÊĞíÑ­»·µ÷ÓÃ
+			// è®¾ç½®beanæ˜¯å¦å¯ä»¥è¢«è¦†ç›–å’Œæ˜¯å¦å…è®¸å¾ªç¯è°ƒç”¨
 			customizeBeanFactory(beanFactory);
 
-			// ¼ÓÔØ Bean µ½ BeanFactory ÖĞ
+			// åŠ è½½ Bean åˆ° BeanFactory ä¸­
 			loadBeanDefinitions(beanFactory);
 			synchronized (this.beanFactoryMonitor) {
 				this.beanFactory = beanFactory;

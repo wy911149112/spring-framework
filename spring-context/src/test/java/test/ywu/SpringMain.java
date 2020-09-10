@@ -12,7 +12,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class SpringMain {
 
 	public static void main(String[] args) {
-		ApplicationContext context = new AnnotationConfigApplicationContext("com.ywu.demo.spring");
+		ApplicationContext context = new AnnotationConfigApplicationContext("com.ywu");
 	}
 
     @Test
